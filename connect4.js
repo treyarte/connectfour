@@ -18,7 +18,7 @@ const newGameBtn = document.querySelector('.new-game-btn');
 const endGameMessage = document.querySelector('.end-game-message');
 newGameBtn.addEventListener('click', () => {
   toggleEndGameResults();
-  location.reload();
+  reset();
 });
 
 /** makeBoard: create in-JS board structure:
@@ -121,7 +121,7 @@ function toggleEndGameResults() {
 /**handleHover: handle when the mouse hover on top change the class to the current player */
 function handleHover(evt) {
   const topElement = evt.target;
-  console.log(topElement);
+
   if (currPlayer === 1) {
     topElement.style.backgroundColor = '#ff1e56';
   } else {
@@ -237,6 +237,16 @@ function checkForWin() {
       }
     }
   }
+}
+
+//reset the game board
+function reset() {
+  board.length = 0;
+  console.log(board);
+  document.querySelector('#board').innerHTML = '';
+  currPlayer = 1;
+  makeBoard();
+  makeHtmlBoard();
 }
 
 makeBoard();

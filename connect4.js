@@ -11,6 +11,16 @@ let HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 
+//get modal and overlay
+const endGameModal = document.querySelector('.end-game');
+const endGameOverlay = document.querySelector('.end-game-overlay');
+const newGameBtn = document.querySelector('.new-game-btn');
+const endGameMessage = document.querySelector('.end-game-message');
+newGameBtn.addEventListener('click', () => {
+  toggleEndGameResults();
+  location.reload();
+});
+
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
@@ -98,7 +108,14 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
-  alert(msg);
+  endGameMessage.innerText = msg;
+  toggleEndGameResults();
+}
+
+//toggle modal and overlay;
+function toggleEndGameResults() {
+  endGameModal.classList.toggle('exit');
+  endGameOverlay.classList.toggle('exit');
 }
 
 /**handleHover: handle when the mouse hover on top change the class to the current player */
@@ -144,7 +161,7 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    return endGame(`Player ${currPlayer} win!`);
   }
 
   // check for tie

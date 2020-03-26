@@ -15,10 +15,6 @@ header {
   margin-top: 50px;
 }
 
-td {
-  overflow: hidden;
-}
-
 #game {
   margin-top: 0px;
   display: flex;
@@ -37,6 +33,9 @@ td {
   border-radius: 100%;
   background-color: #000000;
   padding: 0;
+
+  animation-duration: 1s;
+  animation-iteration-count: 1;
 }
 
 .title {
@@ -61,6 +60,22 @@ td {
   animation-name: drop-bounce;
 }
 
+.td-animation {
+  animation-name: hide-me;
+}
+
+@keyframes hide-me {
+  0% {
+    overflow: visible;
+  }
+  40% {
+  }
+  60% {
+  }
+  85% {
+    overflow: hidden;
+  }
+}
 @keyframes drop-bounce {
   0% {
     transform: translateY(-300px);
@@ -69,7 +84,7 @@ td {
     transform: translateY(0);
   }
   60% {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
   }
   100% {
     transform: translateY(0px);

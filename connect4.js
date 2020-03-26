@@ -99,6 +99,7 @@ function placeInTable(y, x) {
   //have to use getElementById instead of querySelector.
   //querySelector have to handle leading digit ids in a special way
   const cell = document.getElementById(`${y}-${x}`);
+  cell.classList.add('td-animation');
   cell.append(gamePiece);
 }
 

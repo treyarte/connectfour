@@ -27,9 +27,9 @@ newGameBtn.addEventListener('click', () => {
 
 function makeBoard() {
   // create matrix initialized with null
-  for (let i = 0; i < WIDTH; i++) {
+  for (let i = 0; i < HEIGHT; i++) {
     board.push([]);
-    for (let j = 0; j < HEIGHT; j++) {
+    for (let j = 0; j < WIDTH; j++) {
       board[i].push(null);
     }
   }
@@ -80,16 +80,13 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  let spotLocation;
-  //check to see if there are any available spaces in the current column
-  const isSpot = board[x].some(val => {
-    return val === null;
-  });
-  //if there is space get the last index that contains null
-  if (isSpot) {
-    spotLocation = board[x].lastIndexOf(null);
+  //check from the bottom up to see if there are any available spaces in a column
+  for (let i = board.length - 1; i >= 0; i--) {
+    if (board[i][x] === null) {
+      return i;
+    }
   }
-  return spotLocation;
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -157,7 +154,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
   placeInTable(y, x);
-  board[x][y] = currPlayer;
+  board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
@@ -242,7 +239,6 @@ function checkForWin() {
 //reset the game board
 function reset() {
   board.length = 0;
-  console.log(board);
   document.querySelector('#board').innerHTML = '';
   currPlayer = 1;
   makeBoard();

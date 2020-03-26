@@ -10,6 +10,7 @@ let HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
+const playerColors = ['#ff1e56', '#ffac41'];
 
 //get modal and overlay
 const endGameModal = document.querySelector('.end-game');
@@ -120,9 +121,9 @@ function handleHover(evt) {
   const topElement = evt.target;
 
   if (currPlayer === 1) {
-    topElement.style.backgroundColor = '#ff1e56';
+    topElement.style.backgroundColor = playerColors[0];
   } else {
-    topElement.style.backgroundColor = '#ffac41';
+    topElement.style.backgroundColor = playerColors[1];
   }
 }
 
@@ -135,22 +136,20 @@ function handleLeave(evt) {
 /** handleClick: handle click of column top to play piece */
 
 function handleClick(evt) {
-  //when the element is click change the color of the top row so players know who is next
-  const topElement = evt.target;
-  if (currPlayer === 2) {
-    topElement.style.backgroundColor = '#ff1e56';
-  } else {
-    topElement.style.backgroundColor = '#ffac41';
-  }
-  // get x from ID of clicked cell
+  // get x from ID of clicked cell the plus is short hand for parsing to int
   const x = +evt.target.id;
-
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
   if (y === null) {
     return;
   }
-
+  //when the element is click change the color of the top row so players know who is next
+  const topElement = evt.target;
+  if (currPlayer === 2) {
+    topElement.style.backgroundColor = playerColors[0];
+  } else {
+    topElement.style.backgroundColor = playerColors[1];
+  }
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
   placeInTable(y, x);
